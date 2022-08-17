@@ -10,6 +10,7 @@ use App\Models\Task;
 use App\Http\Resources\StateResource;
 use App\Models\State;
 use App\Http\Controllers\TaskController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,7 +25,6 @@ use App\Http\Controllers\TaskController;
 //Route::post('/states', [StateController::class, 'store']);
 //Route::put('/states/{states}', [StateController::class, 'update']);
 //Route::delete('/states/{states}', [StateController::class, 'destroy']);
-
 
 Route::get('/user/{id}', function ($id) {
     return new UserResource(User::findOrFail($id));

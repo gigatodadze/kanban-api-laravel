@@ -66,7 +66,6 @@ class TaskController extends Controller
             'description' => 'nullable|max:510',
         ]);
 
-        
         $success = $task->update($data);
 
         return [

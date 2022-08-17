@@ -9,7 +9,6 @@ use Illuminate\Validation\Rule;
 
 class StateController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
