@@ -20,10 +20,10 @@ use App\Http\Controllers\TaskController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/states', [StateController::class, 'index']);
-Route::post('/states', [StateController::class, 'store']);
-Route::put('/states/{states}', [StateController::class, 'update']);
-Route::delete('/states/{states}', [StateController::class, 'destroy']);
+//Route::get('/states', [StateController::class, 'index']);
+//Route::post('/states', [StateController::class, 'store']);
+//Route::put('/states/{states}', [StateController::class, 'update']);
+//Route::delete('/states/{states}', [StateController::class, 'destroy']);
 
 
 Route::get('/user/{id}', function ($id) {
@@ -33,7 +33,7 @@ Route::get('/users', function () {
     return UserResource::collection(User::all());
 });
 
-Route::apiResource('/states', StateController::class);
+Route::apiResource('states', StateController::class);
 
 Route::apiResource('tasks', TaskController::class);
 

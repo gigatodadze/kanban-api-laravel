@@ -8,11 +8,6 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
-    public function getTaskById($id)
-    {
-        return new TaskResource(Task::findOrFail($id));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -33,11 +28,11 @@ class TaskController extends Controller
     public function store(Task $task, Request $request)
     {
         $data = $request->validate([
-            'user_id' => 'required',
-            'state_id' => 'required',
-            'priority' => 'required',
-            'name' => 'required',
-            'description' => 'required',
+            'user_id' => 'required|integer|exists:users,id',
+            'state_id' => 'required|integer|exists:states,id',
+            'priority' => 'required|integer|max:1',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|max:510',
         ]);
 
         return Task::create($data);
@@ -50,27 +45,28 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        //
+        return new TaskResource($task);
     }
 
     /**
-     * @param \App\Models\State $post
-     * @param $id
+     * @param \App\Models\Task $task
+     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
     public function update(Task $task, Request $request)
     {
         $data = $request->validate([
-            'user_id' => 'nullable',
-            'state_id' => 'required',
-            'priority' => 'required',
-            'name' => 'required',
-            'description' => 'required',
+            'user_id' => 'sometimes|required|integer|exists:users,id',
+            'state_id' => 'sometimes|required|integer|exists:states,id',
+            'priority' => 'sometimes|required|integer|max:1',
+            'name' => 'sometimes|required|string|max:255',
+            'description' => 'nullable|max:510',
         ]);
 
+        
         $success = $task->update($data);
 
         return [

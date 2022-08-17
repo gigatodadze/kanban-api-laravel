@@ -23,4 +23,5 @@ class TaskResource extends JsonResource
             'description' => $this->description,
         ];
     }
+
 }

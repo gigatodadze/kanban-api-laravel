@@ -57,11 +57,9 @@ class StateController extends Controller
     public function update(State $state, Request $request)
     {
         $data = $request->validate([
-            'name' => 'required',
-            'order' => 'required',
+            'name' => 'sometimes|required|string|max:255',
+            'order' => 'sometimes|required|integer',
         ]);
-
-        $success = $state->update($data);
 
         return [
             'success' => $success,
