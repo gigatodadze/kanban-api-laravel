@@ -12,7 +12,7 @@ class StateController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -40,7 +40,7 @@ class StateController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\StateResource
      */
     public function show(State $state)
     {
@@ -48,8 +48,8 @@ class StateController extends Controller
     }
 
     /**
-     * @param \App\Models\State $post
-     * @param $id
+     * @param \App\Models\State $state
+     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */

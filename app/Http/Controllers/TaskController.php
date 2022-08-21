@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskResource;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
@@ -11,7 +12,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -41,9 +42,9 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Task $task
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\TaskResource
      */
     public function show(Task $task)
     {
@@ -54,7 +55,7 @@ class TaskController extends Controller
      * @param \App\Models\Task $task
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
+     * @return \App\Http\Resources\TaskResource
      */
     public function update(Task $task, Request $request)
     {
@@ -66,24 +67,18 @@ class TaskController extends Controller
             'description' => 'nullable|max:510',
         ]);
 
-        $success = $task->update($data);
-
-        return [
-            'success' => $success,
-        ];
+        return new TaskResource(tap($task)->update($data));
     }
 
     /**
-     * @param \App\Http\Controllers\State $state
+     * @param \App\Models\Task $task
      *
-     * @return array
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(State $state)
+    public function destroy(Task $task)
     {
-        $success = $state->delete();
+        $task->delete();
 
-        return [
-            'success' => $success,
-        ];
+        return response()->noContent();
     }
 }
