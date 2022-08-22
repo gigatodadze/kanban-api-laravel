@@ -51,31 +51,26 @@ class StateController extends Controller
      * @param \App\Models\State $state
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
+     * @return \App\Http\Resources\StateResource
      */
     public function update(State $state, Request $request)
     {
-        $data = $request->validate([
+       $data = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'order' => 'sometimes|required|integer',
         ]);
-
-        return [
-            'success' => $success,
-        ];
+        return new StateResource(tap($state)->update($data));
     }
 
     /**
-     * @param \App\Models\State $post
+     * @param \App\Models\State $state
      *
-     * @return array
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(State $post)
+    public function destroy(State $state)
     {
-        $success = $post->delete();
+        $state->delete();
 
-        return [
-            'success' => $success,
-        ];
+        return response()->noContent();
     }
 }
